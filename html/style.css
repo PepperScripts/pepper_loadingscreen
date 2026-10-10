@@ -1,0 +1,254 @@
+/* Pepper Loadingscreen – Größen in vh, damit es von 720p bis 4K gleich aussieht */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("fonts/space-grotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: block;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+}
+
+:root {
+  --accent: #e5484d;
+  --shade: 0.25;
+  --text: #f5f2f2;
+  --muted: rgba(245, 242, 242, 0.62);
+  --tip-seconds: 8s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050305;
+  color: var(--text);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  user-select: none;
+  cursor: none;
+}
+
+/* ---- Hintergrund ------------------------------------------------------------------------------ */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 43%, #5a0a10 0%, #1a0406 45%, #050305 80%);
+}
+.bg video,
+.bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.bg img {
+  z-index: 0;
+}
+.bg #loop {
+  z-index: 1;
+}
+.bg #intro {
+  z-index: 2;
+}
+.bg .show {
+  opacity: 1;
+}
+/* Intro wird beim Wechsel sofort ausgeblendet – letzter Intro-Frame = erster Loop-Frame */
+.bg #intro.gone {
+  transition: none;
+  opacity: 0;
+}
+
+.shade {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 22%, rgba(0, 0, 0, 0) 42%),
+    rgba(0, 0, 0, var(--shade));
+  pointer-events: none;
+}
+
+/* ---- Unterer Bereich -------------------------------------------------------------------------- */
+.hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4vh;
+  padding: 0 6vh 6vh;
+  animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 2.2s both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(2.5vh);
+  }
+}
+
+.brand {
+  min-width: 0;
+}
+.brand h1 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-weight: 700;
+  font-size: 6.4vh;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0.4vh 3vh rgba(0, 0, 0, 0.6);
+}
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 1.2vh;
+  margin: 1.4vh 0 0;
+  font-size: 1.9vh;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.subtitle::before {
+  content: "";
+  width: 4.5vh;
+  height: 0.35vh;
+  border-radius: 1vh;
+  background: var(--accent);
+  box-shadow: 0 0 1.5vh var(--accent);
+}
+.status {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2vh;
+  margin: 3.2vh 0 0;
+  font-size: 1.7vh;
+  color: var(--muted);
+}
+.dots {
+  display: inline-flex;
+  gap: 0.5vh;
+  margin-left: 0.8vh;
+}
+.dots i {
+  width: 0.6vh;
+  height: 0.6vh;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1.2s ease-in-out infinite;
+}
+.dots i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dots i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-0.4vh);
+  }
+}
+
+/* ---- Tipp-Karte ------------------------------------------------------------------------------- */
+.tip {
+  position: relative;
+  flex: 0 1 60vh;
+  max-width: 42vw;
+  padding: 2.2vh 2.6vh 2.6vh;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.4vh;
+  background: rgba(12, 8, 10, 0.58);
+  backdrop-filter: blur(1.4vh);
+  box-shadow: 0 2vh 5vh rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.tip[hidden] {
+  display: none;
+}
+.tip header {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  font-size: 1.4vh;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.tip svg {
+  width: 2.1vh;
+  height: 2.1vh;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tip .count {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.tip p {
+  margin: 1.3vh 0 0;
+  min-height: 2.9em;
+  font-size: 2.05vh;
+  line-height: 1.45;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.tip p.swap {
+  opacity: 0;
+  transform: translateY(0.8vh);
+}
+.timer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.3vh;
+  background: rgba(255, 255, 255, 0.06);
+}
+.timer span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: var(--accent);
+  box-shadow: 0 0 1vh var(--accent);
+}
+.timer span.run {
+  animation: timer var(--tip-seconds) linear both;
+}
+@keyframes timer {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

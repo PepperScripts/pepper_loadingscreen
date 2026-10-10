@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Pepper Loadingscreen · Pepper Scripts · https://pepper-scripts.tebex.store -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pepper Loadingscreen</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <div class="bg" id="bg">
+      <video id="loop" muted playsinline preload="auto"></video>
+      <video id="intro" muted playsinline preload="auto"></video>
+      <img id="still" alt="" />
+    </div>
+    <div class="shade"></div>
+
+    <main class="hud">
+      <section class="brand">
+        <h1 id="server-name"></h1>
+        <p class="subtitle" id="subtitle"></p>
+        <p class="status"><span id="loading"></span><span class="dots"><i></i><i></i><i></i></span></p>
+      </section>
+
+      <aside class="tip" id="tip" hidden>
+        <header>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z" /></svg>
+          <span id="tip-label"></span>
+          <span class="count" id="tip-count"></span>
+        </header>
+        <p id="tip-text"></p>
+        <div class="timer"><span id="tip-timer"></span></div>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
