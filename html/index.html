@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Pepper Loadingscreen · Pepper Scripts · https://pepper-scripts.tebex.store -->
+<!-- Pepper Loadingscreen · Pepper Scripts · https://shop.pepperscripts.de -->
 <html lang="de">
   <head>
     <meta charset="utf-8" />
@@ -7,6 +7,7 @@
     <title>Pepper Loadingscreen</title>
     <link rel="stylesheet" href="style.css" />
     <script src="config.js"></script>
+    <script src="custom.js"></script>
   </head>
   <body>
     <div class="bg" id="bg">
@@ -20,8 +21,33 @@
       <section class="brand">
         <h1 id="server-name"></h1>
         <p class="subtitle" id="subtitle"></p>
+        <p class="welcome" id="welcome" hidden></p>
+        <p class="players" id="players" hidden></p>
         <p class="status"><span id="loading"></span><span class="dots"><i></i><i></i><i></i></span></p>
+        <div class="progress" id="progress" hidden>
+          <div class="track"><span id="progress-bar"></span></div>
+          <span class="value" id="progress-value"></span>
+        </div>
       </section>
+
+      <div class="panel">
+        <aside class="tip info" id="info" hidden>
+          <header>
+            <span id="info-label"></span>
+            <span class="count" id="info-count"></span>
+          </header>
+          <h2 id="info-title"></h2>
+          <p id="info-text"></p>
+          <div class="timer"><span id="info-timer"></span></div>
+        </aside>
+
+        <aside class="tip qr" id="qr" hidden>
+          <canvas id="qr-code"></canvas>
+          <div>
+            <strong id="qr-title"></strong>
+            <span id="qr-text"></span>
+          </div>
+        </aside>
 
       <aside class="tip" id="tip" hidden>
         <header>
@@ -32,8 +58,10 @@
         <p id="tip-text"></p>
         <div class="timer"><span id="tip-timer"></span></div>
       </aside>
+      </div>
     </main>
 
+    <script src="vendor/qrcode.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
