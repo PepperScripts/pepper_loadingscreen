@@ -1,7 +1,7 @@
 # Pepper Loadingscreen
 
 **Pepper Scripts** · Free loading screen · Standalone (ESX, QBCore, Qbox, …)
-Support & updates: https://discord.gg/6NaFJWKDYu · Store: https://pepper-scripts.tebex.store
+Support & updates: https://discord.gg/6NaFJWKDYu · Store: https://shop.pepperscripts.de
 
 ---
 
@@ -9,10 +9,13 @@ Support & updates: https://discord.gg/6NaFJWKDYu · Store: https://pepper-script
 
 ### Features
 - Intro-Video (einmalig) geht nahtlos in ein Loop-Video über – beide austauschbar, auch ein Bild geht
-- Servername, Untertitel und Ladeanzeige
-- Wechselnde Tipps mit Zähler und Zeitbalken
-- Deutsch & Englisch, eigene Akzentfarbe, Abdunklung einstellbar
-- Keine Abhängigkeiten, keine Skripte im Spiel (0,00 ms), alles lokal (keine externen Links/Schriften)
+- Echter Ladefortschritt mit Balken, Prozent und Ladephasen
+- Begrüßung mit Spielername und Spielerzahl
+- Wechselnde Infokarten (Neuigkeiten, Regeln, Team) und QR-Code für deinen Discord
+- 3 Layouts: unten, mittig, Leiste links
+- Servername, Untertitel, wechselnde Tipps mit Zähler und Zeitbalken
+- Deutsch & Englisch mit automatischer Sprachwahl, eigene Akzentfarbe, Abdunklung einstellbar
+- Keine Abhängigkeiten, im Spiel läuft nichts (0,00 ms), alles lokal (keine externen Links/Schriften)
 
 ### Installation
 1. Ordner `pepper_loadingscreen` in deinen `resources`-Ordner legen.
@@ -26,14 +29,25 @@ Support & updates: https://discord.gg/6NaFJWKDYu · Store: https://pepper-script
 ### Einstellungen (`html/config.js`)
 | Option | Bedeutung |
 |---|---|
-| `locale` | `"de"` oder `"en"` – welche Texte aus `locales` genutzt werden |
+| `locale` | `"auto"`, `"de"` oder `"en"` – welche Texte aus `locales` genutzt werden |
+| `layout` | `"classic"` (unten), `"center"` (mittig) oder `"side"` (Leiste links) |
 | `accentColor` | Akzentfarbe, z. B. `"#e5484d"` |
 | `video.intro` / `video.loop` | Pfad zu Intro/Loop (WebM oder Bild), `""` = aus |
 | `video.poster` | Standbild, falls ein Video nicht lädt |
 | `video.sound` / `video.volume` | Ton des Videos an/aus, Lautstärke 0–1 |
 | `video.shade` | Abdunklung 0–1 (für bessere Lesbarkeit) |
 | `tips.enabled` / `tips.interval` / `tips.shuffle` | Tipps an/aus, Sekunden pro Tipp, zufällige Reihenfolge |
-| `locales.<sprache>` | Servername, Untertitel, Ladetext, Tipps |
+| `progress.enabled` / `.percent` / `.phases` | Ladebalken, Prozentzahl, Text je Ladephase |
+| `welcome.name` / `.players` | Begrüßung mit Name, Spielerzahl |
+| `cards.enabled` / `.interval` | Infokarten an/aus, Sekunden pro Karte |
+| `qr.url` | Link für den QR-Code, z. B. dein Discord; `""` = aus |
+| `locales.<sprache>` | Servername, Untertitel, Ladetexte, Infokarten, Tipps |
+
+**Standardmäßig stehen in den Infokarten Beispieltexte und der QR-Code ist aus** – trage deine eigenen Texte und deinen Link ein.
+
+### Eigene Einstellungen, die Updates überstehen
+`html/custom.example.js` kopieren und in `html/custom.js` umbenennen. Dort nur eintragen, was von `config.js` abweicht.
+Unsere Updates liefern keine `custom.js` aus.
 
 ### Eigenes Video
 - Datei nach `html/media/` legen und in `config.js` eintragen (z. B. `loop: "media/mein-video.webm"`).
@@ -50,7 +64,8 @@ Standardmäßig schließt FiveM den Loadingscreen automatisch. Wenn dein Multich
 
 ### Updates
 Neue Versionen gibt es im Cfx.re Portal unter **Granted Assets**, angekündigt in unserem Discord.
-Vor dem Update `html/config.js` und eigene Videos aus `html/media/` sichern und danach wieder einfügen.
+Neue Dateien über den alten Ordner kopieren: `html/custom.js` und eigene Videos mit eigenen Namen bleiben erhalten.
+Ohne `custom.js`: `html/config.js` vorher sichern und deine Änderungen danach in die neue Datei übernehmen.
 
 ---
 
@@ -58,10 +73,13 @@ Vor dem Update `html/config.js` und eigene Videos aus `html/media/` sichern und 
 
 ### Features
 - Intro video (plays once) flows seamlessly into a loop video – both replaceable, an image works too
-- Server name, subtitle and loading indicator
-- Rotating tips with counter and timer bar
-- German & English, custom accent color, adjustable darkening
-- No dependencies, no in-game scripts (0.00 ms), everything local (no external links/fonts)
+- Real loading progress with bar, percentage and loading phases
+- Welcome with player name and player count
+- Rotating info cards (news, rules, team) and a QR code for your Discord
+- 3 layouts: bottom, centered, left sidebar
+- Server name, subtitle, rotating tips with counter and timer bar
+- German & English with automatic language selection, custom accent color, adjustable darkening
+- No dependencies, nothing runs in-game (0.00 ms), everything local (no external links/fonts)
 
 ### Installation
 1. Put the `pepper_loadingscreen` folder into your `resources` folder.
@@ -75,14 +93,25 @@ Vor dem Update `html/config.js` und eigene Videos aus `html/media/` sichern und 
 ### Settings (`html/config.js`)
 | Option | Meaning |
 |---|---|
-| `locale` | `"de"` or `"en"` – which texts from `locales` are used |
+| `locale` | `"auto"`, `"de"` or `"en"` – which texts from `locales` are used |
+| `layout` | `"classic"` (bottom), `"center"` (centered) or `"side"` (left sidebar) |
 | `accentColor` | accent color, e.g. `"#e5484d"` |
 | `video.intro` / `video.loop` | path to intro/loop (WebM or image), `""` = off |
 | `video.poster` | still image if a video fails to load |
 | `video.sound` / `video.volume` | video sound on/off, volume 0–1 |
 | `video.shade` | darkening 0–1 (better readability) |
 | `tips.enabled` / `tips.interval` / `tips.shuffle` | tips on/off, seconds per tip, random order |
-| `locales.<language>` | server name, subtitle, loading text, tips |
+| `progress.enabled` / `.percent` / `.phases` | loading bar, percentage, text per loading phase |
+| `welcome.name` / `.players` | welcome with name, player count |
+| `cards.enabled` / `.interval` | info cards on/off, seconds per card |
+| `qr.url` | link for the QR code, e.g. your Discord; `""` = off |
+| `locales.<language>` | server name, subtitle, loading texts, info cards, tips |
+
+**By default the info cards contain sample text and the QR code is off** – add your own texts and link.
+
+### Own settings that survive updates
+Copy `html/custom.example.js` and rename it to `html/custom.js`. Only add what differs from `config.js`.
+Our updates never ship a `custom.js`.
 
 ### Your own video
 - Put the file into `html/media/` and set it in `config.js` (e.g. `loop: "media/my-video.webm"`).
@@ -99,12 +128,14 @@ By default FiveM closes the loading screen automatically. If your multicharacter
 
 ### Updates
 New versions are available in the Cfx.re Portal under **Granted Assets** and announced on our Discord.
-Before updating, back up `html/config.js` and your own videos from `html/media/` and put them back afterwards.
+Copy the new files over the old folder: `html/custom.js` and your own videos with their own names stay in place.
+Without `custom.js`: back up `html/config.js` first and carry your changes over to the new file.
 
 ---
 
 ## License
 Free to use on your own FiveM server and to modify for it. Re-uploading, reselling or redistributing
 (also modified) is not allowed. Fonts: Inter and Space Grotesk, SIL Open Font License 1.1 (`html/fonts/`).
+QR codes: qrcode-generator by Kazuhiko Arase, MIT license (`html/vendor/qrcode.js`).
 
 © Pepper Scripts
